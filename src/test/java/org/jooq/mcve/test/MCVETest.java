@@ -37,19 +37,19 @@
  */
 package org.jooq.mcve.test;
 
-import static org.jooq.mcve.Tables.TEST;
-import static org.junit.Assert.assertEquals;
+import org.jooq.DSLContext;
+import org.jooq.JSONB;
+import org.jooq.impl.DSL;
+import org.jooq.mcve.tables.records.TestRecord;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import org.jooq.DSLContext;
-import org.jooq.impl.DSL;
-import org.jooq.mcve.tables.records.TestRecord;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.jooq.mcve.Tables.TEST;
+import static org.junit.Assert.assertNull;
 
 public class MCVETest {
 
@@ -58,7 +58,7 @@ public class MCVETest {
 
     @Before
     public void setup() throws Exception {
-        connection = DriverManager.getConnection("jdbc:h2:~/mcve", "sa", "");
+        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mcve", "test", "test");
         ctx = DSL.using(connection);
     }
 
@@ -74,11 +74,11 @@ public class MCVETest {
         TestRecord result =
         ctx.insertInto(TEST)
            .columns(TEST.VALUE)
-           .values(42)
+           .values(JSONB.valueOf(null))
            .returning(TEST.ID)
            .fetchOne();
 
         result.refresh();
-        assertEquals(42, (int) result.getValue());
+        assertNull(result.getValue());
     }
 }

@@ -10,10 +10,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.jooq.version>3.12.1</org.jooq.version>
-        <db.url>jdbc:h2:~/mcve</db.url>
-        <db.username>sa</db.username>
-        <db.password></db.password>
+        <org.jooq.version>3.12.3</org.jooq.version>
+        <db.url>jdbc:postgresql://localhost:5432/mcve</db.url>
+        <db.username>test</db.username>
+        <db.password>test</db.password>
     </properties>
 
     <dependencies>
@@ -25,9 +25,9 @@
             <version>${org.jooq.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.199</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.8</version>
         </dependency>
 
         <!-- Logging -->
@@ -106,11 +106,6 @@
                                         <!-- PostgreSQL is lower case by default -->
                                         <schema>
                                             <inputSchema>mcve</inputSchema>
-                                        </schema>
-
-                                        <!-- H2 and others are upper case by default -->
-                                        <schema>
-                                            <inputSchema>MCVE</inputSchema>
                                         </schema>
                                     </schemata>
                                 </database>

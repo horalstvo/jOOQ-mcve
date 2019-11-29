@@ -1,0 +1,10 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres:12.1"
+    environment:
+      POSTGRES_DB: 'mcve'
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: 'test'
+    ports:
+      - '5432:5432'
